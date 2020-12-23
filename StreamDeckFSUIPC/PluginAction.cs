@@ -1,4 +1,5 @@
 ﻿using BarRaider.SdTools;
+using FSUIPC;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StreamDeckFSUIPC
 {
-    [PluginActionId("StreamDeckFSUIPC.pluginaction")]
+    [PluginActionId("net.islandjohn.streamdeckfsuipc.virtualbutton")]
     public class PluginAction : PluginBase
     {
         private class PluginSettings
@@ -57,9 +58,31 @@ namespace StreamDeckFSUIPC
         public override void KeyPressed(KeyPayload payload)
         {
             Logger.Instance.LogMessage(TracingLevel.INFO, "Key Pressed");
+            try
+            {
+                if (!FSUIPCConnection.IsOpen)
+                {
+                    FSUIPCConnection.Open();
+                }
+            }
+            catch (Exception ex) {
+                Logger.Instance.LogMessage(TracingLevel.ERROR, ex.ToString());
+            }
         }
 
-        public override void KeyReleased(KeyPayload payload) { }
+        public override void KeyReleased(KeyPayload payload) {
+            try
+            {
+                if (!FSUIPCConnection.IsOpen)
+                {
+                    FSUIPCConnection.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.LogMessage(TracingLevel.ERROR, ex.ToString());
+            }
+        }
 
         public override void OnTick() { }
 

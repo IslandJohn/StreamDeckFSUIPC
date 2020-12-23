@@ -2,7 +2,7 @@
   "Actions": [
     {
       "Icon": "Images/icon",
-      "Name": "TODO_ENTER_NAME_OF_ACTION",
+      "Name": "FSUIPC Virtual Button",
       "States": [
         {
           "Image": "Images/pluginAction",
@@ -10,18 +10,18 @@
           "FontSize": "12"
         }
       ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "TODO_ENTER_TOOLTIP",
-      "UUID": "StreamDeckFSUIPC.pluginaction",
+      "SupportedInMultiActions": true,
+      "Tooltip": "Trigger an FSUIPC virtual button",
+      "UUID": "net.islandjohn.streamdeckfsuipc.virtualbutton",
       "PropertyInspectorPath": "PropertyInspector/PluginActionPI.html"
     }
   ],
-  "Author": "TODO_ENTER_YOUR_NAME",
+  "Author": "IslandJohn",
   "Name": "StreamDeckFSUIPC",
-  "Description": "TODO_ENTER_PLUGIN_DESCRIPTION",
+  "Description": "Stream Deck plugin for triggering FSUIPC virtual buttons",
   "Icon": "Images/pluginIcon",
-  "URL": "TODO_ENTER_YOUR_HOMEPAGE",
-  "Version": "1.0",
+  "URL": "https://github.com/IslandJohn/StreamDeckFSUIPC",
+  "Version": "1.0.0",
   "CodePath": "StreamDeckFSUIPC",
   "Category": "Custom",
   "CategoryIcon": "Images/categoryIcon",

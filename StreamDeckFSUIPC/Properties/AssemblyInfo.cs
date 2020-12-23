@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("StreamDeckFSUIPC")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Stream Deck plugin for triggering FSUIPC virtual joystick buttons")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("IslandJohn")]
 [assembly: AssemblyProduct("StreamDeckFSUIPC")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
