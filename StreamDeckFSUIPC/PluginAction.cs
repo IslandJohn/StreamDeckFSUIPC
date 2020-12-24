@@ -20,11 +20,14 @@ namespace StreamDeckFSUIPC
             public static PluginSettings CreateDefaultSettings()
             {
                 PluginSettings instance = new PluginSettings();
+                instance.VirtualJoystick = String.Empty;
                 instance.ButtonNumber = String.Empty;
                 return instance;
             }
 
-            [FilenameProperty]
+            [JsonProperty(PropertyName = "virtualJoystick")]
+            public string VirtualJoystick { get; set; }
+
             [JsonProperty(PropertyName = "buttonNumber")]
             public string ButtonNumber { get; set; }
         }
@@ -56,15 +59,28 @@ namespace StreamDeckFSUIPC
         {
             try
             {
+#if DEBUG
+                Logger.Instance.LogMessage(
+                    TracingLevel.INFO,
+                    "Press virtual joystick " + settings.VirtualJoystick + ", button number " + settings.ButtonNumber);
+#endif
+                int vj = Convert.ToInt32(settings.VirtualJoystick);
+                int bn = Convert.ToInt32(settings.ButtonNumber);
+
                 if (!FSUIPCConnection.IsOpen)
                 {
+#if DEBUG
                     Logger.Instance.LogMessage(TracingLevel.INFO, "Opening FSUIPC connection...");
+#endif
                     FSUIPCConnection.Open();
+#if DEBUG
+                    Logger.Instance.LogMessage(TracingLevel.INFO, "Done.");
+#endif
                 }
 
+
                 FSUIPCConnection.Process("Buttons");
-                Logger.Instance.LogMessage(TracingLevel.INFO, "Press button " + settings.ButtonNumber);
-                Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), true);
+                Buttons.Value.Set((vj - 64) * 32 + bn, true);
                 FSUIPCConnection.Process("Buttons");
             }
             catch (Exception ex)
@@ -77,15 +93,27 @@ namespace StreamDeckFSUIPC
         {
             try
             {
+#if DEBUG
+                Logger.Instance.LogMessage(
+                    TracingLevel.INFO,
+                    "Release virtual joystick " + settings.VirtualJoystick + ", button number " + settings.ButtonNumber);
+#endif
+                int vj = Convert.ToInt32(settings.VirtualJoystick);
+                int bn = Convert.ToInt32(settings.ButtonNumber);
+
                 if (!FSUIPCConnection.IsOpen)
                 {
+#if DEBUG
                     Logger.Instance.LogMessage(TracingLevel.INFO, "Opening FSUIPC connection...");
+#endif
                     FSUIPCConnection.Open();
+#if DEBUG
+                    Logger.Instance.LogMessage(TracingLevel.INFO, "Done.");
+#endif
                 }
 
                 FSUIPCConnection.Process("Buttons");
-                Logger.Instance.LogMessage(TracingLevel.INFO, "Release button " + settings.ButtonNumber);
-                Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), false);
+                Buttons.Value.Set((vj - 64) * 32 + bn, false);
                 FSUIPCConnection.Process("Buttons");
             }
             catch (Exception ex)

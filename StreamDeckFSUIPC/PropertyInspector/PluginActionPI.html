@@ -12,12 +12,16 @@
 </head>
 <body>
     <div class="sdpi-wrapper">
+        <div class="sdpi-item" id="dvDeviceId">
+            <div class="sdpi-item-label">Virtual Joystick</div>
+            <input class="sdpi-item-value max40 sdProperty" placeholder="64-72" value="" id="virtualJoystick">
+        </div>
         <div class="sdpi-item" id="dvButtonNumber">
-            <div class="sdpi-item-label">Button Number:</div>
-            <input class="sdpi-item-value sdProperty" placeholder="0" value="" id="buttonNumber">
+            <div class="sdpi-item-label">Button Number</div>
+            <input class="sdpi-item-value max40 sdProperty" placeholder="0-31" value="" id="buttonNumber">
         </div>
         <div class="sdpi-item" id="dvSave">
-            <div class="sdpi-item-label">Save Settings</div>
+            <div class="sdpi-item-label">Settings</div>
             <button class="sdpi-item-value max20" onclick="setSettings()">Save</button>
         </div>
     </div>
