@@ -94,7 +94,7 @@ namespace StreamDeckFSUIPC
             }
         }
 
-        private readonly Offset<BitArray> Buttons = new Offset<BitArray>("Buttons", 0x3440, 36);
+        private readonly Offset<BitArray> Buttons = new Offset<BitArray>("Buttons", 0x3340, 36);
 
         public override void OnTick() { }
 
