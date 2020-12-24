@@ -3,6 +3,7 @@ using FSUIPC;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,17 +20,13 @@ namespace StreamDeckFSUIPC
             public static PluginSettings CreateDefaultSettings()
             {
                 PluginSettings instance = new PluginSettings();
-                instance.OutputFileName = String.Empty;
-                instance.InputString = String.Empty;
+                instance.ButtonNumber = String.Empty;
                 return instance;
             }
 
             [FilenameProperty]
-            [JsonProperty(PropertyName = "outputFileName")]
-            public string OutputFileName { get; set; }
-
-            [JsonProperty(PropertyName = "inputString")]
-            public string InputString { get; set; }
+            [JsonProperty(PropertyName = "buttonNumber")]
+            public string ButtonNumber { get; set; }
         }
 
         #region Private Members
@@ -57,32 +54,45 @@ namespace StreamDeckFSUIPC
 
         public override void KeyPressed(KeyPayload payload)
         {
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Key Pressed");
             try
             {
                 if (!FSUIPCConnection.IsOpen)
                 {
+                    Logger.Instance.LogMessage(TracingLevel.INFO, "Opening FSUIPC connection...");
                     FSUIPCConnection.Open();
                 }
-            }
-            catch (Exception ex) {
-                Logger.Instance.LogMessage(TracingLevel.ERROR, ex.ToString());
-            }
-        }
 
-        public override void KeyReleased(KeyPayload payload) {
-            try
-            {
-                if (!FSUIPCConnection.IsOpen)
-                {
-                    FSUIPCConnection.Open();
-                }
+                FSUIPCConnection.Process("Buttons");
+                Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), true);
+                FSUIPCConnection.Process("Buttons");
             }
             catch (Exception ex)
             {
                 Logger.Instance.LogMessage(TracingLevel.ERROR, ex.ToString());
             }
         }
+
+        public override void KeyReleased(KeyPayload payload)
+        {
+            try
+            {
+                if (!FSUIPCConnection.IsOpen)
+                {
+                    Logger.Instance.LogMessage(TracingLevel.INFO, "Opening FSUIPC connection...");
+                    FSUIPCConnection.Open();
+                }
+
+                FSUIPCConnection.Process("Buttons");
+                Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), false);
+                FSUIPCConnection.Process("Buttons");
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.LogMessage(TracingLevel.ERROR, ex.ToString());
+            }
+        }
+
+        private readonly Offset<BitArray> Buttons = new Offset<BitArray>("Buttons", 0x3440, 36);
 
         public override void OnTick() { }
 
