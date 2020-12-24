@@ -63,6 +63,7 @@ namespace StreamDeckFSUIPC
                 }
 
                 FSUIPCConnection.Process("Buttons");
+                Logger.Instance.LogMessage(TracingLevel.INFO, "Press button " + settings.ButtonNumber);
                 Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), true);
                 FSUIPCConnection.Process("Buttons");
             }
@@ -83,6 +84,7 @@ namespace StreamDeckFSUIPC
                 }
 
                 FSUIPCConnection.Process("Buttons");
+                Logger.Instance.LogMessage(TracingLevel.INFO, "Release button " + settings.ButtonNumber);
                 Buttons.Value.Set(Convert.ToInt32(settings.ButtonNumber), false);
                 FSUIPCConnection.Process("Buttons");
             }
