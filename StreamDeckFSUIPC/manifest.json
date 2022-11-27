@@ -21,7 +21,7 @@
   "Description": "Stream Deck plugin for triggering FSUIPC virtual buttons",
   "Icon": "Images/pluginIcon",
   "URL": "https://github.com/IslandJohn/StreamDeckFSUIPC",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "CodePath": "StreamDeckFSUIPC",
   "Category": "FSUIPC",
   "CategoryIcon": "Images/categoryIcon",
